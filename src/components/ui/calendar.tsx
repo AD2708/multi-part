@@ -1,5 +1,4 @@
 
-
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
@@ -65,7 +64,7 @@ function Calendar({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Select value={currentMonth.getMonth().toString()} onValueChange={handleMonthChange}>
-            <SelectTrigger className="w-24 h-8 text-sm">
+            <SelectTrigger className="w-24 h-8 text-sm [&>svg]:hidden">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-white">
@@ -78,7 +77,7 @@ function Calendar({
           </Select>
           
           <Select value={currentMonth.getFullYear().toString()} onValueChange={handleYearChange}>
-            <SelectTrigger className="w-20 h-8 text-sm">
+            <SelectTrigger className="w-20 h-8 text-sm [&>svg]:hidden">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-white max-h-48">
@@ -115,10 +114,11 @@ function Calendar({
 
       {/* Calendar */}
       <DayPicker
+        mode="single"
         month={currentMonth}
         onMonthChange={setCurrentMonth}
         showOutsideDays={showOutsideDays}
-        selected={props.selected}
+        selected={props.selected as Date}
         onSelect={handleDateSelect}
         className={cn("pointer-events-auto", className)}
         classNames={{
@@ -156,4 +156,3 @@ function Calendar({
 Calendar.displayName = "Calendar";
 
 export { Calendar };
-
