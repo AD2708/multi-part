@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,6 +32,7 @@ interface FormData {
 
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -181,6 +181,11 @@ const MultiStepForm = () => {
     }
   };
 
+  const handleDateSelect = (date: Date | undefined) => {
+    updateFormData('dob', date);
+    setIsCalendarOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-400 via-slate-500 to-slate-600 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl bg-white shadow-2xl">
@@ -290,7 +295,7 @@ const MultiStepForm = () => {
                 
                 <div>
                   <Label>Date of Birth</Label>
-                  <Popover>
+                  <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
@@ -307,7 +312,7 @@ const MultiStepForm = () => {
                       <Calendar
                         mode="single"
                         selected={formData.dob}
-                        onSelect={(date) => updateFormData('dob', date)}
+                        onDateSelect={handleDateSelect}
                         initialFocus
                         className="pointer-events-auto"
                       />

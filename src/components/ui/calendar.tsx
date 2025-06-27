@@ -7,12 +7,15 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  onDateSelect?: (date: Date | undefined) => void;
+};
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  onDateSelect,
   ...props
 }: CalendarProps) {
   const [currentMonth, setCurrentMonth] = React.useState(new Date());
@@ -49,6 +52,15 @@ function Calendar({
     setCurrentMonth(newDate);
   };
 
+  const handleDateSelect = (date: Date | undefined) => {
+    if (props.onSelect) {
+      props.onSelect(date);
+    }
+    if (onDateSelect) {
+      onDateSelect(date);
+    }
+  };
+
   return (
     <div className="p-3">
       {/* Custom Header */}
@@ -71,7 +83,6 @@ function Calendar({
           <Select value={currentMonth.getFullYear().toString()} onValueChange={handleYearChange}>
             <SelectTrigger className="w-20 h-8 text-sm">
               <SelectValue />
-              <ChevronDown className="h-3 w-3" />
             </SelectTrigger>
             <SelectContent className="bg-white max-h-48">
               {years.map((year) => (
@@ -110,6 +121,7 @@ function Calendar({
         month={currentMonth}
         onMonthChange={setCurrentMonth}
         showOutsideDays={showOutsideDays}
+        onSelect={handleDateSelect}
         className={cn("pointer-events-auto", className)}
         classNames={{
           months: "flex flex-col space-y-4",
