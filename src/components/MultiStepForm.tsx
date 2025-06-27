@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Progress } from '@/components/ui/progress';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
@@ -186,12 +188,25 @@ const MultiStepForm = () => {
     setIsCalendarOpen(false);
   };
 
+  const getProgressValue = () => {
+    return (currentStep / 3) * 100;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-400 via-slate-500 to-slate-600 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl bg-white shadow-2xl">
         <CardHeader className="pb-4">
           <CardTitle className="text-xl font-semibold text-gray-800">Personal Information</CardTitle>
           <p className="text-sm text-gray-600">Fill out the form to create your account.</p>
+          
+          {/* Progress Bar */}
+          <div className="mt-4">
+            <div className="flex justify-between text-xs text-gray-500 mb-2">
+              <span>Step {currentStep} of 3</span>
+              <span>{Math.round(getProgressValue())}% Complete</span>
+            </div>
+            <Progress value={getProgressValue()} className="h-2" />
+          </div>
         </CardHeader>
         
         <CardContent className="space-y-6">

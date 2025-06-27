@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
@@ -53,9 +53,6 @@ function Calendar({
   };
 
   const handleDateSelect = (date: Date | undefined) => {
-    if (props.onSelect) {
-      props.onSelect(date);
-    }
     if (onDateSelect) {
       onDateSelect(date);
     }
@@ -69,7 +66,6 @@ function Calendar({
           <Select value={currentMonth.getMonth().toString()} onValueChange={handleMonthChange}>
             <SelectTrigger className="w-24 h-8 text-sm">
               <SelectValue />
-              <ChevronDown className="h-3 w-3" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               {months.map((month, index) => (
