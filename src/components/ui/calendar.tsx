@@ -1,4 +1,5 @@
 
+
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
@@ -117,6 +118,7 @@ function Calendar({
         month={currentMonth}
         onMonthChange={setCurrentMonth}
         showOutsideDays={showOutsideDays}
+        selected={props.selected}
         onSelect={handleDateSelect}
         className={cn("pointer-events-auto", className)}
         classNames={{
@@ -154,3 +156,4 @@ function Calendar({
 Calendar.displayName = "Calendar";
 
 export { Calendar };
+
