@@ -64,7 +64,7 @@ function Calendar({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Select value={currentMonth.getMonth().toString()} onValueChange={handleMonthChange}>
-            <SelectTrigger className="w-24 h-8 text-sm [&>svg]:hidden">
+            <SelectTrigger className="w-24 h-8 text-sm">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-white">
@@ -77,10 +77,10 @@ function Calendar({
           </Select>
           
           <Select value={currentMonth.getFullYear().toString()} onValueChange={handleYearChange}>
-            <SelectTrigger className="w-20 h-8 text-sm [&>svg]:hidden">
+            <SelectTrigger className="w-20 h-8 text-sm">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-white max-h-48">
+            <SelectContent className="bg-white max-h-48 overflow-y-auto">
               {years.map((year) => (
                 <SelectItem key={year} value={year.toString()}>
                   {year}
