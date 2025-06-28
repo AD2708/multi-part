@@ -52,12 +52,6 @@ function Calendar({
     setCurrentMonth(newDate);
   };
 
-  const handleDateSelect = (date: Date | undefined) => {
-    if (onDateSelect) {
-      onDateSelect(date);
-    }
-  };
-
   return (
     <div className="p-3">
       {/* Custom Header */}
@@ -119,7 +113,15 @@ function Calendar({
         onMonthChange={setCurrentMonth}
         showOutsideDays={showOutsideDays}
         selected={props.selected as Date}
-        onSelect={handleDateSelect}
+        onSelect={(date) => {
+          if (onDateSelect) {
+            onDateSelect(date);
+          }
+          // Also call the original onSelect if provided
+          if (props.onSelect) {
+            (props.onSelect as any)(date);
+          }
+        }}
         className={cn("pointer-events-auto", className)}
         classNames={{
           months: "flex flex-col space-y-4",
@@ -148,7 +150,7 @@ function Calendar({
           IconLeft: () => null, // Hide default icons since we have custom navigation
           IconRight: () => null,
         }}
-        {...props}
+        {...(props as any)}
       />
     </div>
   );
